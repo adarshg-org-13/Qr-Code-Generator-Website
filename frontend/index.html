@@ -1,229 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QrCG - Qr Code Generator Website</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QrCG — QR Code Generator</title>
 </head>
 <body>
-    
-    <!-- Header -->
-    <header>
-        <div class="logo">QrCG</div>
-        <p class="tagline">Qr Code Generator</p>
-    </header> 
 
-    <!-- Main Grid -->
-    <div class="grid">
-        <!-- Left: Controls-->>
-        <div class="card">
-            <div class="card-lable">Configurations</div>
+  <h1>QrCG</h1>
+  <p>QR Code Generator</p>
 
-            <!-- URL / Text -->
-            <div class="input-wrap">
-                <label for="qr-text">URL or Text</label>
-                <input type="text" id="qr-text" placeholder="https://qrCG.vercel.com" autocomplete="off"/>
-            </div>
+  <br/>
 
-            <!-- Style + Error Correction -->
-            <div class="row-2">
-                <div>
-                    <label for="style">Module Style</label>
-                    <select id="style">
-                        <option value="Square">Square</option>
-                        <option value="Circle">Circle</option>
-                        <option value="rounded">Rounded</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="ec">Error Correction</label>
-                    <select id="ec">
-                        <option value="L">Low-7%</option>
-                        <option value="M" selected>Medium-15%</option>
-                        <option value="q">High-25%</option>
-                        <option value="H">Ultra-30%</option>
-                    </select>
-                </div>
-            </div>
+  <!-- URL Input -->
+  <label for="qr-text">URL or Text</label><br/>
+  <input type="text" id="qr-text" placeholder="https://example.com" autocomplete="off" style="width:300px;"/><br/><br/>
 
-            <!-- size Slider -->
-            <div>
-                <label>Size</label>
-                <div class="slider-row">
-                    <input type="range" id="size" min="5" max="20" value="10"/>
-                    <span class="range-val" id="size-val">10</span>
-                </div>
-            </div>
+  <!-- Module Style -->
+  <label for="style">Module Style</label><br/>
+  <select id="style">
+    <option value="square">Square</option>
+    <option value="rounded">Rounded</option>
+    <option value="circle">Circle</option>
+  </select><br/><br/>
 
-            <!-- Border slider-->
-            <div>
-                <label>Border</label>
-                <div class="slider-row">
-                    <input type="range" id="border" min="0" max="8" value="4"/>
-                    <span class="range-val" id="border-val">4</span>
-                </div>
-            </div>
+  <!-- Error Correction -->
+  <label for="ec">Error Correction</label><br/>
+  <select id="ec">
+    <option value="L">Low — 7%</option>
+    <option value="M" selected>Medium — 15%</option>
+    <option value="Q">Quartile — 25%</option>
+    <option value="H">High — 30%</option>
+  </select><br/><br/>
 
-            <!-- fg/Bg value -->
-            <div class="color-row">
-                <div>
-                    <label>Foreground</label>
-                    <div class="color-wrap" onclick="document.getElementById('fg-pick').click()">
-                        <div class="swatch" id="fg-swatch" style="background:#000000;"></div>
-                        <div class="hex-val" id="fg-hex">#000000</div>
-                        <input type="color" id="fg-pick" value="#000000"/>
-                    </div>
-                </div>
-                <div>
-                    <label>background</label>
-                    <div class="color-wrap" onclick="document.getElementById('bg-pick').onclick()">
-                        <div class="swatch" id="bg-swatch" style="background:#FFFFFF;"></div>
-                        <div class="hex-val" id="bg-hex">#FFFFFF</div>
-                        <input type="color" id="bg-pick" value="#FFFFFF"/>
-                    </div>
-                </div>
-            </div>
+  <!-- Size -->
+  <label>Size: <span id="size-val">10</span></label><br/>
+  <input type="range" id="size" min="5" max="20" value="10"
+    oninput="document.getElementById('size-val').textContent = this.value"/><br/><br/>
 
-            <div class="divider"></div>
+  <!-- Border -->
+  <label>Border: <span id="border-val">4</span></label><br/>
+  <input type="range" id="border" min="0" max="8" value="4"
+    oninput="document.getElementById('border-val').textContent = this.value"/><br/><br/>
 
-            <button class="btn-gen" id="generate-button" onclick="generate()">Generator</button>
-            <p class="err" id="err"></p>
-        </div>
+  <!-- Foreground Color -->
+  <label for="fg-pick">Foreground Color</label><br/>
+  <input type="color" id="fg-pick" value="#000000"
+    oninput="document.getElementById('fg-hex').textContent = this.value"/>
+  <span id="fg-hex">#000000</span><br/><br/>
 
-        <!-- right: Preview-->
-        <div class="card preview-card">
-            <div class="card-label">Preview</div>
+  <!-- Background Color -->
+  <label for="bg-pick">Background Color</label><br/>
+  <input type="color" id="bg-pick" value="#ffffff"
+    oninput="document.getElementById('bg-hex').textContent = this.value"/>
+  <span id="bg-hex">#ffffff</span><br/><br/>
 
-            <div class="qr-placeholder" id="placeholder">
-                <div class="ghost-pr" id="ghost"></div>
-                <p class="palceholder-text">awaiting input</p>
-            </div>
+  <!-- Generate Button -->
+  <button id="gen-btn" onclick="generate()">Generate</button>
+  <p id="err" style="color:red; display:none;"></p>
 
-            <div class="spinner" id="spinner"></div>
+  <br/>
 
-            <div class="qr-result" id="result">
-                <div class="qr-frame">
-                    <img id="qr-img" src="" alt="Generated Qr Code"/>
-                </div>
-                <div class="qr-meta">
-                    <span class="qr-url" id="qr-label"></span>
-                    <br/>
-                    <a class="btn-dl" id="dl-btn" download="qrcode.png">&#8595; Download PNG</a>
-                </div>
-            </div>
-        </div>
-    </div>
+  <!-- Preview -->
+  <div id="placeholder"><p>Awaiting input...</p></div>
 
-    <footer>QrCG:A Qr Code Generator Wesbsite <a href="https://www.github.com">Check Out The Code</a></footer>
-    <script>
-        const API = "";
-        
-        //Build ghost qr patterns
-        const PATTERN=[
-            1,1,1,1,1,1,1,
-            1,0,0,0,0,0,1,
-            1,0,1,0,1,0,1,
-            1,0,0,0,0,0,1,
-            1,0,1,0,1,0,1,
-            1,0,0,0,0,0,1,
-            1,1,1,1,1,1,1,
-        ];
-        const ghost = document.getElementById('ghost');
-        PATTERN.forEach(v=> {
-            const c = document.createElement('div');
-            c.className = "cell";
-            c.style.opacity = v? '1' : '0';
-            ghost.appendChild(c);
-        });
+  <div id="result" style="display:none;">
+    <img id="qr-img" src="" alt="Generated QR Code" style="width:200px; height:200px; display:block; margin-top:10px;"/><br/>
+    <a id="dl-btn" download="qrcode.png">&#8595; Download PNG</a>
+  </div>
 
-        //Range labels
-        document.getElementById('size').addEventListener('input',e=> {
-            document.getElementById('size-val').textContent=e.target.value;
-        });
-        document.getElementById('border').addEventListener('input',e=>{
-            document.getElementById('border-val').textContent = e.target.value;
-        });
+  <script>
+    const API = "";
 
-        //Color pickers
-        document.getElementById('fg-pick').addEventListener('input',e=>{
-            document.getElementById('fg-swatch').style.background=e.target.value;
-            document.getElementById('fg-hex').textContent=e.target.value;
-        });
-        document.getElementById('bg-pick').addEventListener('input',e=>{
-            document.getElementById('bg-swatch').style.background=e.target.value;
-            document.getElementById('fg-hex').textContent=e.target.value;
-        });
+    document.getElementById('qr-text').addEventListener('keydown', e => {
+      if (e.key === 'Enter') generate();
+    });
 
-        //Enter key
-        document.getElementById('qr-text').addEventListener('keydown',e=>{
-            if (e.key === "Enter")generate();
-        });
+    async function generate() {
+      const text   = document.getElementById('qr-text').value.trim();
+      const errEl  = document.getElementById('err');
+      errEl.style.display = 'none';
 
-        //Generate
-        async function generate() {
-            const text = document.getElementById('qr-text').value.trim();
-            const errEl = document.getElementById('err');
-            errEl.classList.remove('on');
+      if (!text) {
+        errEl.textContent = 'Please enter a URL or text.';
+        errEl.style.display = 'block';
+        return;
+      }
 
-            if (!text){
-                errEl.textContent = 'please enter a URL or text';
-                errEl.classList.add('on');
-                return;
-            }
+      const style  = document.getElementById('style').value;
+      const ec     = document.getElementById('ec').value;
+      const size   = document.getElementById('size').value;
+      const border = document.getElementById('border').value;
+      const fg     = document.getElementById('fg-pick').value.replace('#', '');
+      const bg     = document.getElementById('bg-pick').value.replace('#', '');
 
-            const style = document.getElementById('style').value;
-            const ec =    document.getElementById('ec').value;
-            const size = document.getElementById('size').value;
-            const border = document.getElementById('border').value;
-            const fg = document.getElementById('fg-pick').value.replace("#",'');
-            const bg = document.getElementById('bg-pick').value.replace("#",'');
+      const btn    = document.getElementById('gen-btn');
+      btn.disabled = true;
+      btn.textContent = 'Generating...';
 
-            const btn = document.getElementById('gen-btn');
-            const spinner = document.getElementById('spinner');
-            const placeholder = document.getElementById('palceholder');
-            const result = document.getElementById('result');
+      document.getElementById('placeholder').style.display = 'none';
+      document.getElementById('result').style.display = 'none';
 
-            btn.disabled = true;
-            btn.textContent = 'Generating.....';
-            placeholder.style.display = 'none';
-            result.classList.remove('visible');
-            spinner.classList.add('on');
+      const url = `${API}/generate`
+        + `?text=${encodeURIComponent(text)}`
+        + `&size=${size}`
+        + `&border=${border}`
+        + `&fg_color=${fg}`
+        + `&bg_color=${bg}`
+        + `&style=${style}`
+        + `&error_correction=${ec}`;
 
-            const url = `/generate?text=...`
-            + `?text=${encodeURIComponent(text)}`
-            + `&size=${size}`
-            + `&border=${border}`
-            + `&fg_color=${fg}`
-            + `&bg_color=${bg}`
-            + `&style=${style}`
-            + `&error_correction=${ec}`;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`${res.status}`);
+        const blob = await res.blob();
+        const src  = URL.createObjectURL(blob);
 
-            try{
-                const res = await fetch(url);
-                if (!res.ok) throw new Error(`${res.status}`);
-                const blob = await res.blob();
-                const src = URL.createObjectURL(blob);
+        document.getElementById('qr-img').src = src;
+        document.getElementById('dl-btn').href = src;
+        document.getElementById('dl-btn').download = `qrcode-${Date.now()}.png`;
+        document.getElementById('result').style.display = 'block';
 
-                document.getElementById('qr-img').src = src;
-                document.getElementById('dl-btn').href = src;
-                document.getElementById('dl-btn').download=`qrcode-${Date.now()}.png`;
-                document.getElementById('qr-label').textContent = text.length> 48? text.slice(0,48) + '...' : text;
+      } catch (e) {
+        document.getElementById('placeholder').style.display = 'block';
+        errEl.textContent = 'Could not reach backend. Check your deployment.';
+        errEl.style.display = 'block';
+      }
 
-                spinner.classList.remove('on');
-                result.classList.add('visible');
-            } catch(e){
-                spinner.classList.remove('on');
-                placeholder.style.display='flex';
-                errEl.textContent='Could not Reach the backend.';
-                errEl.classList.add('on');
-            }
+      btn.disabled = false;
+      btn.textContent = 'Generate';
+    }
+  </script>
 
-            btn.disabled=false;
-            btn.textContent='Generate';
-        }
-
-    </script>
 </body>
 </html>
