@@ -191,7 +191,7 @@
             result.classList.remove('visible');
             spinner.classList.add('on');
 
-            const url = `${API}/generate`
+            const url = `/generate?text=...`
             + `?text=${encodeURIComponent(text)}`
             + `&size=${size}`
             + `&border=${border}`
