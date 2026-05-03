@@ -117,5 +117,84 @@
     </div>
 
     <footer>QrCG:A Qr Code Generator Wesbsite <a href="https://www.github.com">Check Out The Code</a></footer>
+    <script>
+        const API = "";
+        
+        //Build ghost qr patterns
+        const PATTERN=[
+            1,1,1,1,1,1,1,
+            1,0,0,0,0,0,1,
+            1,0,1,0,1,0,1,
+            1,0,0,0,0,0,1,
+            1,0,1,0,1,0,1,
+            1,0,0,0,0,0,1,
+            1,1,1,1,1,1,1,
+        ];
+        const ghost = document.getElementById('ghost');
+        PATTERN.forEach(v=> {
+            const c = document.createElement('div');
+            c.className = "cell";
+            c.style.opacity = v? '1' : '0';
+            ghost.appendChild(c);
+        });
+
+        //Range labels
+        document.getElementById('size').addEventListener('input',e=> {
+            document.getElementById('size-val').textContent=e.target.value;
+        });
+        document.getElementById('border').addEventListener('input',e=>{
+            document.getElementById('border-val').textContent = e.target.value;
+        });
+
+        //Color pickers
+        document.getElementById('fg-pick').addEventListener('input',e=>{
+            document.getElementById('fg-swatch').style.background=e.target.value;
+            document.getElementById('fg-hex').textContent=e.target.value;
+        });
+        document.getElementById('bg-pick').addEventListener('input',e=>{
+            document.getElementById('bg-swatch').style.background=e.target.value;
+            document.getElementById('fg-hex').textContent=e.target.value;
+        });
+
+        //Enter key
+        document.getElementById('qr-text').addEventListener('keydown',e=>{
+            if (e.key === "Enter")generate();
+        });
+
+        //Generate
+        async function generate() {
+            const text = document.getElementById('qr-text').value.trim();
+            const errEl = document.getElementById('err');
+            errEl.classList.remove('on');
+
+            if (!text){
+                errEl.textContent = 'please enter a URL or text';
+                errEl.classList.add('on');
+                return;
+            }
+
+            const style = document.getElementById('style').value;
+            const ec =    document.getElementById('ec').value;
+            const size = document.getElementById('size').value;
+            const border = document.getElementById('border').value;
+            const fg = document.getElementById('fg-pick').value.replace("#",'');
+            const bg = document.getElementById('bg-pick').value.replace("#",'');
+
+            const btn = document.getElementById('gen-btn');
+            const spinner = document.getElementById('spinner');
+            const placeholder = document.getElementById('palceholder');
+            const result = document.getElementById('result');
+
+            btn.disabled = true;
+            btn.textContent = 'Generating.....';
+            placeholder.style.display = 'none';
+            result.classList.remove('visible');
+            spinner.classList.add('on');
+
+            const url='@{API}/generate'
+               
+        }
+
+    </script>
 </body>
 </html>

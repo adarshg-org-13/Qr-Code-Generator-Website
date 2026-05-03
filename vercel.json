@@ -1,0 +1,22 @@
+{
+    "builds": [
+        {
+            "src":"backend/Qr_backend.py",
+            "use":"@vercel/python"
+        },
+        {
+            "src":"frontend/**",
+            "use":"@vercel/static"
+        }
+    ],
+    "routes": [
+        {
+            "src":"/generate(.*)",
+            "dest":"backend/Qr_backend.py"
+        },
+        {
+            "src":"/(.*)",
+            "dest":"frontend/$1"
+        }
+    ]
+}
