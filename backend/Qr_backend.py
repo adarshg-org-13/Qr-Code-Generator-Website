@@ -16,7 +16,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"], 
 )
-
+#Calculation to convert hex color to rgb
 def hex_to_rgb(hex_color:str):
     hex_color = hex_color.lstrip("#")
     return tuple(int(hex_color[i:i+2],16) for i in (0,2,4))
@@ -35,7 +35,7 @@ def generate_qr(
     style:             str = Query("Square",description="Style: square, rounded, circle"),
     error_correction:  str = Query("M",description="Error Correction level: L,M,Q,H"),
 ):
-    
+   #error correction mapping 
     ec_map = {
         "L": qrcode.constants.ERROR_CORRECT_L,
         "M": qrcode.constants.ERROR_CORRECT_M,
@@ -43,7 +43,7 @@ def generate_qr(
         "H": qrcode.constants.ERROR_CORRECT_H,
     }
     ec_level = ec_map.get(error_correction.upper(),qrcode.constants.ERROR_CORRECT_M)
-
+    #Style map
     style_map = {
         "rounded": RoundedModuleDrawer(),
         "circle":  CircleModuleDrawer(),
@@ -77,5 +77,5 @@ def generate_qr(
     buf= io.BytesIO()
     img.save(buf,format="PNG")
     buf.seek(0)
-
+    #calling off the qr code
     return StreamingResponse(buf,media_type="image/png")

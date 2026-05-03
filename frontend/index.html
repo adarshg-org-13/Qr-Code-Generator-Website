@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QrCG - Qr Code Generator Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header>
+        <div class="logo">QrCG</div>
+        <p class="tagline">Qr Code Generator</p>
+    </header> 
+
+    <!-- Main Grid -->
+    <div class="grid">
+        <!-- Left: Controls-->>
+        <div class="card">
+            <div class="card-lable">Configurations</div>
+
+            <!-- URL / Text -->
+            <div class="input-wrap">
+                <label for="qr-text">URL or Text</label>
+                <input type="text" id="qr-text" placeholder="https://qrCG.vercel.com" autocomplete="off"/>
+            </div>
+
+            <!-- Style + Error Correction -->
+            <div class="row-2">
+                <div>
+                    <label for="style">Module Style</label>
+                    <select id="style">
+                        <option value="Square">Square</option>
+                        <option value="Circle">Circle</option>
+                        <option value="rounded">Rounded</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="ec">Error Correction</label>
+                    <select id="ec">
+                        <option value="L">Low-7%</option>
+                        <option value="M" selected>Medium-15%</option>
+                        <option value="q">High-25%</option>
+                        <option value="H">Ultra-30%</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- size Slider -->
+            <div>
+                <label>Size</label>
+                <div class="slider-row">
+                    <input type="range" id="size" min="5" max="20" value="10"/>
+                    <span class="range-val" id="size-val">10</span>
+                </div>
+            </div>
+
+            <!-- Border slider-->
+            <div>
+                <label>Border</label>
+                <div class="slider-row">
+                    <input type="range" id="border" min="0" max="8" value="4"/>
+                    <span class="range-val" id="border-val">4</span>
+                </div>
+            </div>
+
+            <!-- fg/Bg value -->
+            <div class="color-row">
+                <div>
+                    <label>Foreground</label>
+                    <div class="color-wrap" onclick="document.getElementById('fg-pick').click()">
+                        <div class="swatch" id="fg-swatch" style="background:#000000;"></div>
+                        <div class="hex-val" id="fg-hex">#000000</div>
+                        <input type="color" id="fg-pick" value="#000000"/>
+                    </div>
+                </div>
+                <div>
+                    <label>background</label>
+                    <div class="color-wrap" onclick="document.getElementById('bg-pick').onclick()">
+                        <div class="swatch" id="bg-swatch" style="background:#FFFFFF;"></div>
+                        <div class="hex-val" id="bg-hex">#FFFFFF</div>
+                        <input type="color" id="bg-pick" value="#FFFFFF"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <button class="btn-gen" id="generate-button" onclick="generate()">Generator</button>
+            <p class="err" id="err"></p>
+        </div>
+
+        <!-- right: Preview-->
+        <div class="card preview-card">
+            <div class="card-label">Preview</div>
+
+            <div class="qr-placeholder" id="placeholder">
+                <div class="ghost-pr" id="ghost"></div>
+                <p class="palceholder-text">awaiting input</p>
+            </div>
+
+            <div class="spinner" id="spinner"></div>
+
+            <div class="qr-result" id="result">
+                <div class="qr-frame">
+                    <img id="qr-img" src="" alt="Generated Qr Code"/>
+                </div>
+                <div class="qr-meta">
+                    <span class="qr-url" id="qr-label"></span>
+                    <br/>
+                    <a class="btn-dl" id="dl-btn" download="qrcode.png">&#8595; Download PNG</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>QrCG:A Qr Code Generator Wesbsite <a href="https://www.github.com">Check Out The Code</a></footer>
+</body>
+</html>
