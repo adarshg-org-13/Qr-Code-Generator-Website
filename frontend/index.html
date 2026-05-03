@@ -191,8 +191,37 @@
             result.classList.remove('visible');
             spinner.classList.add('on');
 
-            const url='@{API}/generate'
-               
+            const url = `${API}/generate`
+            + `?text=${encodeURIComponent(text)}`
+            + `&size=${size}`
+            + `&border=${border}`
+            + `&fg_color=${fg}`
+            + `&bg_color=${bg}`
+            + `&style=${style}`
+            + `&error_correction=${ec}`;
+
+            try{
+                const res = await fetch(url);
+                if (!res.ok) throw new Error(`${res.status}`);
+                const blob = await res.blob();
+                const src = URL.createObjectURL(blob);
+
+                document.getElementById('qr-img').src = src;
+                document.getElementById('dl-btn').href = src;
+                document.getElementById('dl-btn').download=`qrcode-${Date.now()}.png`;
+                document.getElementById('qr-label').textContent = text.length> 48? text.slice(0,48) + '...' : text;
+
+                spinner.classList.remove('on');
+                result.classList.add('visible');
+            } catch(e){
+                spinner.classList.remove('on');
+                placeholder.style.display='flex';
+                errEl.textContent='Could not Reach the backend.';
+                errEl.classList.add('on');
+            }
+
+            btn.disabled=false;
+            btn.textContent='Generate';
         }
 
     </script>
