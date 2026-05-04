@@ -1,0 +1,53 @@
+/*Main CSS File for the frontend */
+/* Silver black and white based theme*/
+
+*,*::before,*::after{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+:root {
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --border: #252525;
+    --border-height: #3a3a3a;
+    --text: #e0e0e0;
+    --muted: #555;
+    --silver: #9a9a9a;
+    --white: #f0f0f0;
+    --error: #e05050;
+
+    --grad-logo: linear-gradient(135deg,#d0d0d0 0%,#606060 50%,#bebebe 100%);
+    --grad-button: linear-gradient(135deg,#272727 0%,#181818 100%);
+    --grad-shimmer: linear-gradient(90deg,transparent,rgba(200,200,200,0.18),transparent);
+}
+
+body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono',monospace;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1.5rem 4rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before,
+body::after{
+    content:'';
+    position:fixed;
+    pointer-events:none;
+    z-index:  0;
+}
+
+body::before{
+    top:     -20%;
+    left: -10%;
+    width: 55%;
+    height: 55%;
+    background: radial-gradient(ellipse,rgba(180,180,180,0.055)0%,transparent 65%);
+}

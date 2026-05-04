@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -12,11 +11,10 @@
 
   <br/>
 
-  <!-- URL Input -->
   <label for="qr-text">URL or Text</label><br/>
   <input type="text" id="qr-text" placeholder="https://example.com" autocomplete="off" style="width:300px;"/><br/><br/>
 
-  <!-- Module Style -->
+
   <label for="style">Module Style</label><br/>
   <select id="style">
     <option value="square">Square</option>
@@ -24,7 +22,7 @@
     <option value="circle">Circle</option>
   </select><br/><br/>
 
-  <!-- Error Correction -->
+
   <label for="ec">Error Correction</label><br/>
   <select id="ec">
     <option value="L">Low — 7%</option>
@@ -33,40 +31,39 @@
     <option value="H">High — 30%</option>
   </select><br/><br/>
 
-  <!-- Size -->
+
   <label>Size: <span id="size-val">10</span></label><br/>
   <input type="range" id="size" min="5" max="20" value="10"
     oninput="document.getElementById('size-val').textContent = this.value"/><br/><br/>
 
-  <!-- Border -->
+
   <label>Border: <span id="border-val">4</span></label><br/>
   <input type="range" id="border" min="0" max="8" value="4"
     oninput="document.getElementById('border-val').textContent = this.value"/><br/><br/>
 
-  <!-- Foreground Color -->
+
   <label for="fg-pick">Foreground Color</label><br/>
   <input type="color" id="fg-pick" value="#000000"
     oninput="document.getElementById('fg-hex').textContent = this.value"/>
   <span id="fg-hex">#000000</span><br/><br/>
 
-  <!-- Background Color -->
+
   <label for="bg-pick">Background Color</label><br/>
   <input type="color" id="bg-pick" value="#ffffff"
     oninput="document.getElementById('bg-hex').textContent = this.value"/>
   <span id="bg-hex">#ffffff</span><br/><br/>
 
-  <!-- Generate Button -->
+
   <button id="gen-btn" onclick="generate()">Generate</button>
   <p id="err" style="color:red; display:none;"></p>
 
   <br/>
 
-  <!-- Preview -->
   <div id="placeholder"><p>Awaiting input...</p></div>
 
   <div id="result" style="display:none;">
     <img id="qr-img" src="" alt="Generated QR Code" style="width:200px; height:200px; display:block; margin-top:10px;"/><br/>
-    <a id="dl-btn" download="qrcode.png">&#8595; Download PNG</a>
+    <a id="dl-btn" download="qrcode.png">Download PNG</a>
   </div>
 
   <script>

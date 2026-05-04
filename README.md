@@ -4,14 +4,20 @@ This is a website where the user can generate qr code by just pasting the link o
 this website comes with some customization for the qr code in which are the bg and fg colours border size shape and error
 correction 
 
+---
+
 Check Out Some Images Of The App:---
 ![img_showcase_1]()
 ![img_showcase_2]()
 ![img_showcase_3]()
 
+---
+
 This project uses some external as well as inbuilt python modules
 
 You can download it by just copying the commands written below:--
+
+---
 
 ```bash
 pip install qrcode[pill]
@@ -24,3 +30,12 @@ pip install fastapi
 ```bash
 pip install pillow
 ```
+
+```bash
+pip install uvicorn[standard]
+```
+
+For the linux users u can use apt install python3-[name of the modules]
+Visit the website :----
+
+---
