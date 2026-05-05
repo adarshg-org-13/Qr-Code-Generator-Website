@@ -38,4 +38,6 @@ pip install uvicorn[standard]
 For the linux users u can use apt install python3-[name of the modules]
 Visit the website :----
 
+https://qr-code-generator-website-gamma.vercel.app/
+
 ---

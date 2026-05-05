@@ -51,3 +51,110 @@ body::before{
     height: 55%;
     background: radial-gradient(ellipse,rgba(180,180,180,0.055)0%,transparent 65%);
 }
+
+header{
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeIn 0.55s ease both;
+}
+
+.logo{
+    font-family: 'Bebas Neue',sans-serif;
+    font-size: clamp(3.5rem,10vw,5.6rem);
+    letter-spacing: 0.08em;
+    line-height: 1;
+    background: var(--grad-logo);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tagline{
+    font-size: 0.62rem;
+    color: var(--muted);
+    letter-spacing: 0.22rem;
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.55s 0.1s ease both;
+}
+
+@media (max-width: 660px){
+    .grid{grid-template-columns: 1fr;}
+}
+
+.card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before{
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--grad-shimmer);
+}
+
+.card-label{
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card-lable::before{
+    content: '';
+    display: inline-block;
+    width: 14px; height: 1px;
+    background: var(--silver);
+}
+
+label{
+    display: block;
+    font-size: 0.6rem;
+    letter-spacing: 0.14rem;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+}
+
+.input-wrap {margin-bottom: 1.1rem;}
+
+input[type="text"]{
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    font-family: 'IBM Plex Mono',monospace;
+    font-size: 0.88rem;
+    padding: 0.7rem 0.9rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]::placeholder{color:var(--muted);}
+input[type="text"]:focus{
+    border-color: var(--silver);
+    box-shadow: 0 0 0 3px rgba(155,155,155,0.08);
+}
