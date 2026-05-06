@@ -158,3 +158,59 @@ input[type="text"]:focus{
     border-color: var(--silver);
     box-shadow: 0 0 0 3px rgba(155,155,155,0.08);
 }
+
+.row-2{
+    display: grid;
+    grid-temnplate-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-bottom: 1.1rem;
+}
+
+select{
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    font-family: 'IBM Plex mono',monospace;
+    font-size: 0.76rem;
+    padding: 0.62rem 0.8rem;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.8rem center;
+}
+select:focus {border-color: var(--silver);};
+select option {background: var(--surface2);color: var(--text);}
+
+.slider-row{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.1rem;
+}
+
+input[tpye="range"]{
+    flex: 1;
+    -webkit-appearance: none;
+    height: 3px;
+    background: var(--border-hi);
+    border-radius: 99px;
+    outline: none;
+}
+input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--silver-hi);
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s;
+}
+input[type="range"]::-webkit-slider-thumb:hover{
+    transform: scale(1.25);
+    background: var(--white);
+}
